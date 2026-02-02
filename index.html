@@ -46,10 +46,18 @@
       box-shadow: 0 18px 60px rgba(0,0,0,.15);
     }
 
-    .logo {
-      width: 140px;
+    .hero-gif {
+      width: min(300px, 90vw);
       margin: 0 auto 10px;
       display: block;
+      border-radius: 12px;
+    }
+
+    .result-img {
+      width: min(300px, 90vw);
+      margin: 0 auto;
+      display: block;
+      border-radius: 12px;
     }
 
     h1 {
@@ -78,7 +86,6 @@
       box-shadow: 0 10px 24px rgba(0,0,0,.14);
       user-select: none;
       -webkit-tap-highlight-color: transparent;
-      transition: transform .12s ease, background .12s ease;
     }
 
     #yesBtn {
@@ -86,8 +93,6 @@
       background: var(--yes);
       color: #fff;
     }
-
-    #yesBtn:hover { background: var(--yesHover); }
 
     #noBtn {
       left: 62%;
@@ -111,13 +116,6 @@
       from { transform: scale(.96); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
-
-    .meme {
-      width: min(360px, 90vw);
-      margin: 0 auto;
-      display: block;
-      border-radius: 12px;
-    }
   </style>
 </head>
 
@@ -125,28 +123,29 @@
   <canvas id="confettiCanvas"></canvas>
 
   <main class="card">
-    <!-- McDonald's logo -->
+    
     <img
-      class="logo"
-      src="https://upload.wikimedia.org/wikipedia/commons/4/4b/McDonald%27s_logo.svg"
-      alt="McDonald's"
+      id="heroGif"
+      class="hero-gif"
+      src="https://media.giphy.com/media/901mxGLGQN2PyCQpoc/giphy.gif"
+      alt="Pisică McDonald's"
     />
 
-    <h1>Zi mă… mă duci la Mec? 🍟</h1>
+    <h1>Mă duci la ✨Mec✨? Zi mă, mă duci la Mec 🍟?</h1>
 
     <section class="button-zone" id="zone">
       <button id="yesBtn">DA</button>
       <button id="noBtn">NU</button>
     </section>
 
-    <div class="hint" id="hint">Nu prea pare o opțiune 😏</div>
+    <div class="hint" id="hint">"Nu" are emoții 😼</div>
 
     <section class="result" id="result">
-      <h2>LET’S GOO 🍔🔥</h2>
+      <h2>Tiiiiiiiiiii 🍔🔥</h2>
       <img
-        class="meme"
-        src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"
-        alt="McDonald's meme"
+        class="result-img"
+        src="mec.jpg"
+        alt="Mec"
       />
     </section>
   </main>
@@ -157,8 +156,8 @@
     const noBtn = document.getElementById("noBtn");
     const result = document.getElementById("result");
     const hint = document.getElementById("hint");
+    const heroGif = document.getElementById("heroGif");
 
-    /* CONFETTI */
     const confettiCanvas = document.getElementById("confettiCanvas");
 
     function resizeCanvas() {
@@ -180,14 +179,12 @@
       });
     }
 
-    /* YES GROWS */
     let yesScale = 1;
     function growYes() {
       yesScale = Math.min(2.2, yesScale + 0.1);
       yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
     }
 
-    /* NO FUITE NORMALĂ (VARIANTA BUNĂ) */
     function clamp(n, min, max) {
       return Math.max(min, Math.min(max, n));
     }
@@ -230,10 +227,10 @@
 
     noBtn.addEventListener("click", e => e.preventDefault());
 
-    /* YES CLICK */
     yesBtn.addEventListener("click", () => {
       zone.style.display = "none";
       hint.style.display = "none";
+      heroGif.style.display = "none"; 
       result.style.display = "block";
       fireConfetti();
     });
