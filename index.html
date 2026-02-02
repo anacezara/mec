@@ -29,13 +29,6 @@
       padding: 16px;
     }
 
-    #confettiCanvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9999;
-    }
-
     .card {
       width: min(720px, 92vw);
       padding: 26px 22px;
@@ -120,10 +113,7 @@
 </head>
 
 <body>
-  <canvas id="confettiCanvas"></canvas>
-
   <main class="card">
-    
     <img
       id="heroGif"
       class="hero-gif"
@@ -157,24 +147,12 @@
     const result = document.getElementById("result");
     const hint = document.getElementById("hint");
     const heroGif = document.getElementById("heroGif");
-
-    const confettiCanvas = document.getElementById("confettiCanvas");
-
-    function resizeCanvas() {
-      const dpr = Math.max(1, window.devicePixelRatio || 1);
-      confettiCanvas.width = innerWidth * dpr;
-      confettiCanvas.height = innerHeight * dpr;
-    }
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    const confettiInstance = confetti.create(confettiCanvas, { resize: false });
-
+    
     function fireConfetti() {
-      confettiInstance({
-        particleCount: 250,
+      confetti({
+        particleCount: 180,
         spread: 120,
+        startVelocity: 45,
         origin: { y: 0.6 }
       });
     }
@@ -226,11 +204,11 @@
     });
 
     noBtn.addEventListener("click", e => e.preventDefault());
-
+    
     yesBtn.addEventListener("click", () => {
       zone.style.display = "none";
       hint.style.display = "none";
-      heroGif.style.display = "none"; 
+      heroGif.style.display = "none";
       result.style.display = "block";
       fireConfetti();
     });
